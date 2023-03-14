@@ -11,6 +11,7 @@ var moviment := Vector2.ZERO
 var gravetat := Vector2.DOWN * 750
 var salt = Vector2.UP
 var time = 0
+var MaxTime := 0.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,14 +30,14 @@ func _process(delta):
 	
 	if Input.is_action_pressed("ves_amunt") and is_on_floor():
 		time += delta
-		if time >= 0.1:
-			time = 0.1
+		if time >= MaxTime:
+			time = MaxTime
 			if Input.is_action_just_released("ves_amunt"):
 				moviment.y += MaxJmp
 				time = 0
 		
 	if Input.is_action_just_released("ves_amunt") and is_on_floor():
-		moviment.y = ((MaxJmp - MinJmp)*(time/0.1) + MinJmp)
+		moviment.y = ((MaxJmp - MinJmp)*(time/MaxTime) + MinJmp)
 		time = 0
 #
 	
