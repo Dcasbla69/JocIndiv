@@ -5,8 +5,8 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 var velocitat := 200
-var MaxJmp := -600
-var MinJmp := -200
+var MaxJmp := -800
+var MinJmp := -300
 var moviment := Vector2.ZERO
 var gravetat := Vector2.DOWN * 750
 var salt = Vector2.UP
@@ -24,9 +24,8 @@ func _ready():
 func _process(delta):
 	
 	moviment += gravetat * delta
-	
-	if is_on_floor():
-		moviment.x = Input.get_axis("ves_esquerra","ves_dreta") * velocitat
+
+	moviment.x = Input.get_axis("ves_esquerra","ves_dreta") * velocitat
 	
 	if Input.is_action_pressed("ves_amunt") and is_on_floor():
 		time += delta
@@ -39,6 +38,8 @@ func _process(delta):
 	if Input.is_action_just_released("ves_amunt") and is_on_floor():
 		moviment.y = ((MaxJmp - MinJmp)*(time/MaxTime) + MinJmp)
 		time = 0
+	
+	
 #
 	
 	moviment = move_and_slide(moviment, Vector2.UP)
